@@ -37,7 +37,7 @@
     - [`assert_file_user_id_set`](#assert_file_user_id_set)
     - [`assert_file_not_user_id_set`](#assert_file_not_user_id_set)
     - [`assert_sticky_bit`](#assert_sticky_bit)
-    - [`assert_not_sticky_bit`](#assert_not_sticky_bit)
+    - [`assert_no_sticky_bit`](#assert_no_sticky_bit)
   - [_Test File Content:_](#_test-file-content_)
     - [`assert_file_empty`](#assert_file_empty)
     - [`assert_file_not_empty`](#assert_file_not_empty)
@@ -734,13 +734,13 @@ path : /path/to/notstickybit
 
 [Back to index](#Index-of-all-functions)
 
-### `assert_not_sticky_bit`
+### `assert_no_sticky_bit`
 
 Fail if stickybit is set.
 
 ```bash
-@test 'assert_not_sticky_bit() {
-  assert_not_sticky_bit /path/to/notstickybit
+@test 'assert_no_sticky_bit() {
+  assert_no_sticky_bit /path/to/notstickybit
 }
 ```
 
