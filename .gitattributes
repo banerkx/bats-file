@@ -1,0 +1,45 @@
+################################################################################
+# To ensure that text files, in the repository itself (but not necessarily on  #
+# disk), line endings are LF and **not** CRLF. This file should be placed in   #
+# the root directory of your repository.                                       #
+#                                                                              #
+# See:                                                                         #
+#   https://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/        #
+################################################################################
+
+################################################################################
+# Treat all files as text files (except for the exceptions below). This means  #
+# that CRLF will be changed to LF.                                             #
+################################################################################
+* text=auto
+
+################################################################################
+# The following text file extensions should have Unix line endings.            #
+################################################################################
+*.bash text eol=cr
+*.bats text eol=cr
+*.json text eol=cr
+*.md   text eol=cr
+*.sh   text eol=cr
+*.yml  text eol=cr
+
+################################################################################
+# The following text files should should have Unix line endings.               #
+################################################################################
+LICENSE text eol=cr
+
+################################################################################
+# The following "dot" text files should should have Unix line endings.         #
+################################################################################
+.gitattributes text eol=cr
+.gitignore     text eol=cr
+
+################################################################################
+# The following text file extensions should have Windows line endings.         #
+################################################################################
+Vagrantfile text eol=cr
+
+################################################################################
+# The following files are binary.                                              #
+################################################################################
+
