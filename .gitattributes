@@ -14,6 +14,11 @@
 * text=auto
 
 ################################################################################
+# Do not want git to alter line endings this empty file.                       #
+################################################################################
+test/fixtures/empty/dir/empty-file -text
+
+################################################################################
 # The following text file extensions should have Unix line endings.            #
 ################################################################################
 *.bash text eol=cr
@@ -26,7 +31,8 @@
 ################################################################################
 # The following text files should should have Unix line endings.               #
 ################################################################################
-LICENSE text eol=cr
+LICENSE text                           eol=cr
+test/fixtures/empty/dir/non-empty-file eol=cr
 
 ################################################################################
 # The following "dot" text files should should have Unix line endings.         #
