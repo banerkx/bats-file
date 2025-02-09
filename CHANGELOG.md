@@ -1,18 +1,18 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**CHANGELOG.md Table Of Contents**
+**bats-file/CHANGELOG.md Table Of Contents**
 
 - [Change Log](#change-log)
   - [\[0.4.0\] - 2023-08-23](#%5C040%5C---2023-08-23)
     - [Added](#added)
     - [Fixed](#fixed)
-  - [\[0.3.0\] - 2018-10-28](#%5C030%5C---2018-10-28)
-    - [Added](#added-1)
+  - [0.3.0 - 2018-10-28](#030---2018-10-28)
+    - [Added 0.3.0](#added-030)
   - [[0.2.0] - 2016-12-07](#020---2016-12-07)
-    - [Added](#added-2)
-    - [Fixed](#fixed-1)
+    - [Added 0.2.0](#added-020)
+    - [Fixed 0.2.0](#fixed-020)
   - [0.1.0 - 2016-03-22](#010---2016-03-22)
-    - [Added](#added-3)
+    - [Added 0.1.0](#added-010)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -45,26 +45,26 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - use new `bats_sudo` helper to avoid running `sudo` as root/when not available (#53, 54)
 - fix `assert_symlink_to` for temp files in OSX (#56)
 
-## \[0.3.0\] - 2018-10-28
+## 0.3.0 - 2018-10-28
 
-### Added
+### Added 0.3.0
 
 - Added assert_files_equal assert_files_not_equal functions!
 - Added 2 test scripts for assert_files_equal assert_files_not_equal
 
 ## [0.2.0] - 2016-12-07
 
-### Added
+### Added 0.2.0
 
 - Handling temporary directories with `temp_make()` and `temp_del()`
 
-### Fixed
+### Fixed 0.2.0
 
 - Function comments listing path transformation variables incorrectly
 
 ## 0.1.0 - 2016-03-22
 
-### Added
+### Added 0.1.0
 
 - Testing file existence with `assert_file_exist` and
   `assert_file_not_exist`

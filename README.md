@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**README.md Table Of Contents**
+**bats-file/README.md Table Of Contents**
 
 - [bats-file](#bats-file)
   - [**Index of all functions**](#index-of-all-functions)
@@ -53,7 +53,7 @@
       - [Preserve directory on failure](#preserve-directory-on-failure)
   - [Transforming displayed paths](#transforming-displayed-paths)
   - [**Development**](#development)
-    - [Why?](#why)
+    - [Why`?`](#why)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -977,7 +977,7 @@ When `BATSLIB_TEMP_PRESERVE` is set to 1, the function succeeds but the
 directory is not deleted.
 
 ```bash
-$ BATSLIB_TEMP_PRESERVE=1 bats sample.bats
+`$` BATSLIB_TEMP_PRESERVE=1 bats sample.bats
 ```
 
 #### Preserve directory on failure
@@ -989,7 +989,7 @@ When `BATSLIB_TEMP_PRESERVE_ON_FAILURE` is set to 1, the function
 succeeds but the directory is not deleted if the test has failed.
 
 ```bash
-$ BATSLIB_TEMP_PRESERVE_ON_FAILURE=1 bats sample.bats
+`$` BATSLIB_TEMP_PRESERVE_ON_FAILURE=1 bats sample.bats
 ```
 
 The outcome of a test is only known in `teardown`, therefore this
@@ -1078,7 +1078,7 @@ Once you're done with development, you can simply turn the VM off with
 user@localhost:~/bats-file$ vagrant halt
 ```
 
-### Why?
+### Why`?`
 
 - Why Vagrant, not Docker
   - This replicates the 100% CI
