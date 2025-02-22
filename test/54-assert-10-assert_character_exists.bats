@@ -13,18 +13,18 @@ teardown () {
 # Correctness
 @test 'assert_character_exists() <file>: returns 0 if <file> character special file exists' {
   local -r file="${TEST_FIXTURE_ROOT}/dir/test_device"
-  run assert_character_exists "$file"
-  [ "$status" -eq 0 ]
+  run assert_character_exists "${file}"
+  [ "${status}" -eq 0 ]
   [ "${#lines[@]}" -eq 0 ]
 }
 
 @test 'assert_character_exists() <file>: returns 1 and displays path if <file> character special file does not exist' {
   local -r file="${TEST_FIXTURE_ROOT}/dir/file"
-  run assert_character_exists "$file"
-  [ "$status" -eq 1 ]
+  run assert_character_exists "${file}"
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- character special file does not exist --' ]
-  [ "${lines[1]}" == "path : $file" ]
+  [ "${lines[1]}" == "path : ${file}" ]
   [ "${lines[2]}" == '--' ]
 }
 
@@ -33,7 +33,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_character_exists "${TEST_FIXTURE_ROOT}/nodir"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- character special file does not exist --' ]
   [ "${lines[1]}" == "path : ../nodir" ]
@@ -44,7 +44,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM='%file.does_not_exists'
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_character_exists "${TEST_FIXTURE_ROOT}/nodir"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- character special file does not exist --' ]
   [ "${lines[1]}" == "path : ${TEST_FIXTURE_ROOT}/nodir" ]
@@ -55,7 +55,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM='nodir'
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_character_exists "${TEST_FIXTURE_ROOT}/nodir"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- character special file does not exist --' ]
   [ "${lines[1]}" == "path : ${TEST_FIXTURE_ROOT}/.." ]

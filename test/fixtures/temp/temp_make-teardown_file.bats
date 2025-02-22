@@ -8,5 +8,5 @@ load 'test_helper'
 
 teardown_file() {
   TEST_TEMP_DIR="$(temp_make)"
-  rm -r -- "$TEST_TEMP_DIR"
+  rm -r -- "${TEST_TEMP_DIR}"
 }

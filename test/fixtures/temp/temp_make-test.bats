@@ -7,5 +7,5 @@ load 'test_helper'
 }
 
 teardown() {
-  rm -r -- "$TEST_TEMP_DIR"
+  rm -r -- "${TEST_TEMP_DIR}"
 }

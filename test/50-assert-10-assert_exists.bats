@@ -13,25 +13,25 @@ teardown () {
 # Correctness
 @test 'assert_exists() <file>: returns 0 if <file> exists' {
   local -r file="${TEST_FIXTURE_ROOT}/dir/file"
-  run assert_exists "$file"
-  [ "$status" -eq 0 ]
+  run assert_exists "${file}"
+  [ "${status}" -eq 0 ]
   [ "${#lines[@]}" -eq 0 ]
 }
 
 @test 'assert_exists() <file>: returns 0 if <directory> exists' {
   local -r file="${TEST_FIXTURE_ROOT}/dir"
-  run assert_exists "$file"
-  [ "$status" -eq 0 ]
+  run assert_exists "${file}"
+  [ "${status}" -eq 0 ]
   [ "${#lines[@]}" -eq 0 ]
 }
 
 @test 'assert_exists() <file>: returns 1 and displays path if <file> does not exist' {
   local -r file="${TEST_FIXTURE_ROOT}/dir/file.does_not_exists"
-  run assert_exists "$file"
-  [ "$status" -eq 1 ]
+  run assert_exists "${file}"
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- file or directory does not exist --' ]
-  [ "${lines[1]}" == "path : $file" ]
+  [ "${lines[1]}" == "path : ${file}" ]
   [ "${lines[2]}" == '--' ]
 }
 
@@ -40,7 +40,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- file or directory does not exist --' ]
   [ "${lines[1]}" == "path : ../dir/file.does_not_exist" ]
@@ -51,7 +51,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM='%file.does_not_exist'
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- file or directory does not exist --' ]
   [ "${lines[1]}" == "path : ${TEST_FIXTURE_ROOT}/dir/.." ]
@@ -62,7 +62,7 @@ teardown () {
   local -r BATSLIB_FILE_PATH_REM='dir'
   local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- file or directory does not exist --' ]
   [ "${lines[1]}" == "path : ${TEST_FIXTURE_ROOT}/../file.does_not_exist" ]

@@ -6,27 +6,27 @@ fixtures 'temp'
 
 # Correctness
 @test 'temp_make() <var>: returns 0, creates a temporary directory and displays its path' {
-  teardown() { rm -r -- "$TEST_TEMP_DIR"; }
+  teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
   TEST_TEMP_DIR="$(temp_make)"
-  echo $TEST_TEMP_DIR
+  echo ${TEST_TEMP_DIR}
 
   local -r literal="${BATS_TMPDIR}/${BATS_TEST_FILENAME##*/}-"
   local -r pattern='[1-9][0-9]*-.{6}'
-  [[ $TEST_TEMP_DIR =~ ^"${literal}"${pattern}$ ]] || false
-  [ -e "$TEST_TEMP_DIR" ]
+  [[ ${TEST_TEMP_DIR} =~ ^"${literal}"${pattern}$ ]] || false
+  [ -e "${TEST_TEMP_DIR}" ]
 }
 
 @test 'temp_make() <var>: returns 1 and displays an error message if the directory can not be created' {
   local -r BATS_TMPDIR='/does/not/exist'
   run temp_make
 
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
   [ "${lines[0]}" == '-- ERROR: temp_make --' ]
   
   REGEX="mktemp:.*No such file or directory"
-  [[ ${lines[1]} =~ $REGEX ]] || false
+  [[ ${lines[1]} =~ ${REGEX} ]] || false
   [ "${lines[2]}" == '--' ]
 }
 
@@ -53,21 +53,21 @@ fixtures 'temp'
 @test "temp_make() <var>: does not work when called from \`main'" {
   run bats "${TEST_FIXTURE_ROOT}/temp_make-main.bats"
 
-  [ "$status" -eq 1 ]
+  [ "${status}" -eq 1 ]
   [[ "${output}" == *'-- ERROR: temp_make --'* ]] || false
   [[ "${output}" == *"Must be called from \`setup', \`@test' or \`teardown'"* ]] || false
 }
 
 # Options
 test_p_prefix() {
-  teardown() { rm -r -- "$TEST_TEMP_DIR"; }
+  teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
   TEST_TEMP_DIR="$(temp_make "$@" 'test-')"
 
   local -r literal="${BATS_TMPDIR}/test-${BATS_TEST_FILENAME##*/}-"
   local -r pattern='[1-9][0-9]*-.{6}'
-  [[ $TEST_TEMP_DIR =~ ^"${literal}"${pattern}$ ]] || false
-  [ -e "$TEST_TEMP_DIR" ]
+  [[ ${TEST_TEMP_DIR} =~ ^"${literal}"${pattern}$ ]] || false
+  [ -e "${TEST_TEMP_DIR}" ]
 }
 
 @test 'temp_make() -p <prefix> <var>: returns 0 and creates a temporary directory with <prefix> prefix' {
@@ -79,9 +79,9 @@ test_p_prefix() {
 }
 
 @test "temp_make() --prefix <prefix> <var>: works if <prefix> starts with a \`-'" {
-  teardown() { rm -r -- "$TEST_TEMP_DIR"; }
+  teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
   TEST_TEMP_DIR="$(temp_make --prefix -)"
 
-  [ -e "$TEST_TEMP_DIR" ]
+  [ -e "${TEST_TEMP_DIR}" ]
 }
