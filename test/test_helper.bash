@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Set variables for easily accessing sub-directories of `./fixtures'.
 #
 # Globals:
@@ -9,14 +11,18 @@
 # Returns:
 #   none
 fixtures() {
+# NOTE: BATS_TEST_DIRNAME is defined elsewhere.
+# shellcheck disable=SC2154
   TEST_FIXTURE_ROOT="${BATS_TEST_DIRNAME}/fixtures/$1"
+# NOTE: TEST_RELATIVE_FIXTURE_ROOT may be used elsewhere.
+# shellcheck disable=SC2034
   TEST_RELATIVE_FIXTURE_ROOT=$(bats_trim_filename "${TEST_FIXTURE_ROOT}" TEST_RELATIVE_FIXTURE_ROOT)
 }
 
 bats_sudo() {
   local sudo_path=$(command -v sudo 2>/dev/null)
-  if [[ "$(whoami)" != 'root' ]] && [ -x "$sudo_path" ]; then
-    "$sudo_path" "$@"
+  if [[ "$(whoami)" != 'root' ]] && [ -x "${sudo_path}" ]; then
+    "${sudo_path}" "$@"
   else
     "$@"
   fi

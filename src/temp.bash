@@ -1,4 +1,5 @@
-#
+# shellcheck shell=bash
+
 # bats-file - Common filesystem assertions and helpers for Bats
 #
 # Written in 2016 by Zoltan Tombol <zoltan dot tombol at gmail dot com>
@@ -62,9 +63,11 @@
 #   STDERR - error messages
 temp_make() {
   # Check caller.
+# NOTE: BATS_TEST_NAME is assigned elsewhere.
+# shellcheck disable=SC2154,SC2082,SC2250
   if ! ( batslib_is_caller --indirect 'setup' \
       || batslib_is_caller --indirect 'setup_file' \
-      || batslib_is_caller --indirect "$BATS_TEST_NAME" \
+      || batslib_is_caller --indirect "${$BATS_TEST_NAME}" \
       || batslib_is_caller --indirect 'teardown' \
       || batslib_is_caller --indirect 'teardown_file' )
   then
@@ -95,20 +98,26 @@ temp_make() {
   done
 
   # Create directory.
-  local template="$prefix"
+  local template="${prefix}"
+# NOTE: BATS_TEST_FILENAME is assigned elsewhere.
+# shellcheck disable=SC2154
   template+="${BATS_TEST_FILENAME##*/}"
+# NOTE: BATS_TEST_NUMBER is assigned elsewhere.
+# shellcheck disable=SC2154
   template+="-${BATS_TEST_NUMBER}"
   template+='-XXXXXX'
 
   local path
+# NOTE: BATS_TMPDIR is assigned elsewhere.
+# shellcheck disable=SC2154
   if ! path="$(mktemp -d  --  "${BATS_TMPDIR}/${template}" 2>&1)"; then
-    echo "$path" \
+    echo "${path}" \
       | batslib_decorate 'ERROR: temp_make' \
       | fail
     return $?
   fi
 
-  echo "$path"
+  echo "${path}"
 }
 
 # Delete a temporary directory, typically created with `temp_make', and
@@ -171,10 +180,10 @@ temp_del() {
 
   # Delete directory.
   local result
-  if ! result="$(rm -r -- "$path" 2>&1 >/dev/null )"; then
-    echo "$result" \
+  if ! result="$(rm -r -- "${path}" 2>&1 >/dev/null )"; then
+    echo "${result}" \
       | batslib_decorate 'ERROR: temp_del' \
       | fail
-    return $?
+    return ${?}
   fi
 }
