@@ -5,6 +5,7 @@ fixtures 'temp'
 
 
 # Correctness
+# shellcheck disable=SC2317
 @test 'temp_make() <var>: returns 0, creates a temporary directory and displays its path' {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -59,6 +60,7 @@ fixtures 'temp'
 }
 
 # Options
+# shellcheck disable=SC2317
 test_p_prefix() {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 

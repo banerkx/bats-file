@@ -51,6 +51,7 @@ fixtures 'temp'
 }
 
 # Environment variables
+# shellcheck disable=SC2317
 @test "temp_del() <path>: returns 0 and does not delete <path> if \`BATSLIB_TEMP_PRESERVE' is set to \`1'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -63,6 +64,7 @@ fixtures 'temp'
   [ -e "${TEST_TEMP_DIR}" ]
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: returns 0 and does not delete <path> if \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' is set to \`1' and the test have failed" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -92,6 +94,7 @@ fixtures 'temp'
   [ ! -e "${TEST_TEMP_DIR}" ]
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' works when called from \`teardown'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -103,6 +106,7 @@ fixtures 'temp'
   [ -e "${TEST_TEMP_DIR}" ]
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' works when called from \`teardown_file'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -114,6 +118,7 @@ fixtures 'temp'
   [ -e "${TEST_TEMP_DIR}" ]
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' does not work when called from \`main'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -126,6 +131,7 @@ fixtures 'temp'
   [[ "${output}" == *"Must be called from \`teardown' or \`teardown_file' when using \`BATSLIB_TEMP_PRESERVE_ON_FAILURE'"* ]] || false
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' does not work when called from \`setup'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
@@ -140,6 +146,7 @@ fixtures 'temp'
   [[ ${lines[8]} == *'--' ]] || false
 }
 
+# shellcheck disable=SC2317
 @test "temp_del() <path>: \`BATSLIB_TEMP_PRESERVE_ON_FAILURE' does not work when called from \`setup_file'" {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
