@@ -4,10 +4,11 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  touch ${TEST_FIXTURE_ROOT}/dir/file
+# shellcheck disable=SC2154
+  touch "${TEST_FIXTURE_ROOT}/dir/file"
 }
 teardown () {
-    rm -f ${TEST_FIXTURE_ROOT}/dir/file
+    rm -f "${TEST_FIXTURE_ROOT}/dir/file"
 }
 
 # Correctness
@@ -59,8 +60,6 @@ teardown () {
 }
 
 @test 'assert_exists() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
