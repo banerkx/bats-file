@@ -4,10 +4,12 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
   python -c "import socket as s; sock = s.socket(s.AF_UNIX); sock.bind('${TEST_FIXTURE_ROOT}/dir/somesocket')"
 }
 teardown () {
-    rm -f ${TEST_FIXTURE_ROOT}/dir/somesocket
+    rm -f "${TEST_FIXTURE_ROOT}"/dir/somesocket
 }
 
 
@@ -31,8 +33,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_socket_exists() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_socket_exists "${TEST_FIXTURE_ROOT}/dir"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -42,8 +42,6 @@ teardown () {
 }
 
 @test 'assert_socket_exists() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%file'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_socket_exists "${TEST_FIXTURE_ROOT}/dir/file"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -53,8 +51,6 @@ teardown () {
 }
 
 @test 'assert_socket_exists() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_socket_exists "${TEST_FIXTURE_ROOT}/dir"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]

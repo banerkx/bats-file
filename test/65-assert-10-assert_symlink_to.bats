@@ -3,6 +3,8 @@ load 'test_helper'
 fixtures 'symlink'
 
 setup () {
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
  touch "${TEST_FIXTURE_ROOT}/file" "${TEST_FIXTURE_ROOT}/notasymlink"
  ln -s "${TEST_FIXTURE_ROOT}/file" "${TEST_FIXTURE_ROOT}/symlink"
  TEMP_FOLDER="$(temp_make)"

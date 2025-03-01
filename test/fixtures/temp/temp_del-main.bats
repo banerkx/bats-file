@@ -2,7 +2,8 @@
 
 load 'test_helper'
 
-BATSLIB_TEMP_PRESERVE_ON_FAILURE=1
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
 temp_del "${TEST_TEMP_DIR}"
 
 @test empty {

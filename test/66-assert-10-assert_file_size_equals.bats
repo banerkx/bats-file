@@ -3,6 +3,8 @@ load 'test_helper'
 fixtures 'empty'
 # Correctness
 @test 'assert_file_size_equals() <file>: returns 0 if <file> <size> correct' {
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
   local -r file="${TEST_FIXTURE_ROOT}/dir/empty-file"
   run assert_file_size_equals "${file}" "0"
   [ "${status}" -eq 0 ]
@@ -20,20 +22,14 @@ fixtures 'empty'
 }
 # Transforming path
 @test 'assert_file_size_equals() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_size_equals "${TEST_FIXTURE_ROOT}/dir/non-empty-file" "5"
   [ "${status}" -eq 1 ]
 }
 @test 'assert_file_size_equals() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%non-empty-file'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_size_equals "${TEST_FIXTURE_ROOT}/dir/non-empty-file" "5"
   [ "${status}" -eq 1 ]
 }
 @test 'assert_file_size_equals() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_size_equals "${TEST_FIXTURE_ROOT}/dir/non-empty-file" "5"
   [ "${status}" -eq 1 ]
 }

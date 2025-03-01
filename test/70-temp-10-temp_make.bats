@@ -9,9 +9,12 @@ fixtures 'temp'
 @test 'temp_make() <var>: returns 0, creates a temporary directory and displays its path' {
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
+# shellcheck disable=SC2030
   TEST_TEMP_DIR="$(temp_make)"
-  echo ${TEST_TEMP_DIR}
+  echo "${TEST_TEMP_DIR}"
 
+# NOTE: BATS_TMPDIR and BATS_TEST_FILENAME are assigned by BATS.
+# shellcheck disable=SC2154
   local -r literal="${BATS_TMPDIR}/${BATS_TEST_FILENAME##*/}-"
   local -r pattern='[1-9][0-9]*-.{6}'
   [[ ${TEST_TEMP_DIR} =~ ^"${literal}"${pattern}$ ]] || false
@@ -19,7 +22,6 @@ fixtures 'temp'
 }
 
 @test 'temp_make() <var>: returns 1 and displays an error message if the directory can not be created' {
-  local -r BATS_TMPDIR='/does/not/exist'
   run temp_make
 
   [ "${status}" -eq 1 ]
@@ -32,6 +34,8 @@ fixtures 'temp'
 }
 
 @test "temp_make() <var>: works when called from \`setup'" {
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
   bats "${TEST_FIXTURE_ROOT}/temp_make-setup.bats"
 }
 
@@ -62,6 +66,7 @@ fixtures 'temp'
 # Options
 # shellcheck disable=SC2317
 test_p_prefix() {
+# shellcheck disable=SC2031
   teardown() { rm -r -- "${TEST_TEMP_DIR}"; }
 
   TEST_TEMP_DIR="$(temp_make "$@" 'test-')"

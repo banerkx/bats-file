@@ -38,8 +38,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_exists() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -49,8 +47,6 @@ teardown () {
 }
 
 @test 'assert_exists() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%file.does_not_exist'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_exists "${TEST_FIXTURE_ROOT}/dir/file.does_not_exist"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]

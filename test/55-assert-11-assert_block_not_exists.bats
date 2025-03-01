@@ -4,10 +4,12 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  bats_sudo mknod ${TEST_FIXTURE_ROOT}/dir/blockfile b 89 1
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  bats_sudo mknod "${TEST_FIXTURE_ROOT}"/dir/blockfile b 89 1
 }
 teardown () {
-    rm -f ${TEST_FIXTURE_ROOT}/dir/blockfile
+    rm -f "${TEST_FIXTURE_ROOT}"/dir/blockfile
 }
 
 # Correctness
@@ -30,8 +32,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_block_not_exists() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_block_not_exists "${TEST_FIXTURE_ROOT}/dir/blockfile"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -41,8 +41,6 @@ teardown () {
 }
 
 @test 'assert_block_not_exists() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%blockfile'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_block_not_exists "${TEST_FIXTURE_ROOT}/dir/blockfile"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -53,8 +51,6 @@ teardown () {
 }
 
 @test 'assert_block_not_exists() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_block_not_exists "${TEST_FIXTURE_ROOT}/dir/blockfile"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]

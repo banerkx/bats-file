@@ -4,16 +4,18 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  touch ${TEST_FIXTURE_ROOT}/dir/owner ${TEST_FIXTURE_ROOT}/dir/notowner
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  touch "${TEST_FIXTURE_ROOT}"/dir/owner "${TEST_FIXTURE_ROOT}"/dir/notowner
   # There is PATH addition to /usr/sbin which won't come by default on bash3
   # on macOS
   chown_path=$(PATH="${PATH}:/usr/sbin" command -v chown 2>/dev/null)
-  bats_sudo "${chown_path}" root ${TEST_FIXTURE_ROOT}/dir/owner
-  bats_sudo "${chown_path}" daemon ${TEST_FIXTURE_ROOT}/dir/notowner
+  bats_sudo "${chown_path}" root "${TEST_FIXTURE_ROOT}"/dir/owner
+  bats_sudo "${chown_path}" daemon "${TEST_FIXTURE_ROOT}"/dir/notowner
 }
 
 teardown () {
-  bats_sudo rm -f ${TEST_FIXTURE_ROOT}/dir/owner ${TEST_FIXTURE_ROOT}/dir/notowner
+  bats_sudo rm -f "${TEST_FIXTURE_ROOT}"/dir/owner "${TEST_FIXTURE_ROOT}"/dir/notowner
 }
 
 # Correctness
@@ -39,8 +41,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_not_file_owner() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r owner="root"
   local -r file="${TEST_FIXTURE_ROOT}/dir/owner"
   run assert_not_file_owner "${owner}" "${file}"
@@ -52,8 +52,6 @@ teardown () {
 }
 
 @test 'assert_not_file_owner() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%dir/owner'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r owner="root"
   local -r file="${TEST_FIXTURE_ROOT}/dir/owner"
   run assert_not_file_owner "${owner}" "${file}"
@@ -65,8 +63,6 @@ teardown () {
 }
 
 @test 'assert_not_file_owner() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir/owner'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r owner="root"
   local -r file="${TEST_FIXTURE_ROOT}/dir/owner"
   run assert_not_file_owner "${owner}" "${file}"

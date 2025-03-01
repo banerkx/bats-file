@@ -4,11 +4,13 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  touch ${TEST_FIXTURE_ROOT}/dir/permission
-  chmod 777 ${TEST_FIXTURE_ROOT}/dir/permission
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  touch "${TEST_FIXTURE_ROOT}"/dir/permission
+  chmod 777 "${TEST_FIXTURE_ROOT}"/dir/permission
 }
 teardown () {
-  rm -f ${TEST_FIXTURE_ROOT}/dir/permission
+  rm -f "${TEST_FIXTURE_ROOT}"/dir/permission
 }
 
 # Correctness
@@ -35,8 +37,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_file_permission() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r permission="644"
   local -r file="${TEST_FIXTURE_ROOT}/dir/permission"
   run assert_file_permission "${permission}" "${file}"
@@ -48,8 +48,6 @@ teardown () {
 }
 
 @test 'assert_file_permission() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%dir/permission'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r permission="644"
   local -r file="${TEST_FIXTURE_ROOT}/dir/permission"
   run assert_file_permission "${permission}" "${file}"
@@ -61,8 +59,6 @@ teardown () {
 }
 
 @test 'assert_file_permission() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir/permission'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   local -r permission="644"
   local -r file="${TEST_FIXTURE_ROOT}/dir/permission"
   run assert_file_permission "${permission}" "${file}"

@@ -4,12 +4,16 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  touch ${TEST_FIXTURE_ROOT}/dir/file
-  ln -s ${TEST_FIXTURE_ROOT}/dir/file ${TEST_FIXTURE_ROOT}/dir/link
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  touch "${TEST_FIXTURE_ROOT}"/dir/file
+  ln -s "${TEST_FIXTURE_ROOT}"/dir/file "${TEST_FIXTURE_ROOT}"/dir/link
 
 }
 teardown () {
-    rm -f ${TEST_FIXTURE_ROOT}/dir/link ${TEST_FIXTURE_ROOT}/dir/file
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+    rm -f "${TEST_FIXTURE_ROOT}"/dir/link "${TEST_FIXTURE_ROOT}"/dir/file
 }
 
 
@@ -33,8 +37,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_link_exists() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_link_exists "${TEST_FIXTURE_ROOT}/nodir"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -44,8 +46,6 @@ teardown () {
 }
 
 @test 'assert_link_exists() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%file.does_not_exists'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_link_exists "${TEST_FIXTURE_ROOT}/nodir"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -55,8 +55,6 @@ teardown () {
 }
 
 @test 'assert_link_exists() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='nodir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_link_exists "${TEST_FIXTURE_ROOT}/nodir"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]

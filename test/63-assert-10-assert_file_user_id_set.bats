@@ -4,13 +4,15 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  touch ${TEST_FIXTURE_ROOT}/dir/useridset ${TEST_FIXTURE_ROOT}/dir/useridnotset
-  chmod u+s ${TEST_FIXTURE_ROOT}/dir/useridset
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  touch "${TEST_FIXTURE_ROOT}"/dir/useridset "${TEST_FIXTURE_ROOT}"/dir/useridnotset
+  chmod u+s "${TEST_FIXTURE_ROOT}"/dir/useridset
   
 }
 teardown () {
   
-  rm -f ${TEST_FIXTURE_ROOT}/dir/useridset ${TEST_FIXTURE_ROOT}/dir/useridnotset
+  rm -f "${TEST_FIXTURE_ROOT}"/dir/useridset "${TEST_FIXTURE_ROOT}"/dir/useridnotset
 }
 
 
@@ -36,8 +38,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_file_user_id_set() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_user_id_set "${TEST_FIXTURE_ROOT}/dir/useridnotset"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -47,8 +47,6 @@ teardown () {
 }
 
 @test 'assert_file_user_id_set() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%dir/useridnotset'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_user_id_set "${TEST_FIXTURE_ROOT}/dir/useridnotset"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -58,8 +56,6 @@ teardown () {
 }
 
 @test 'assert_file_user_id_set() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir/useridnotset'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_file_user_id_set "${TEST_FIXTURE_ROOT}/dir/useridnotset"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]

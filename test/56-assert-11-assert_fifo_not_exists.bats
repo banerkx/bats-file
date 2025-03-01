@@ -4,10 +4,12 @@ load 'test_helper'
 fixtures 'exist'
 
 setup () {
-  mkfifo ${TEST_FIXTURE_ROOT}/dir/testpipe
+# NOTE: TEST_FIXTURE_ROOT is assigned by BATS.
+# shellcheck disable=SC2154
+  mkfifo "${TEST_FIXTURE_ROOT}"/dir/testpipe
 }
 teardown () {
-    rm -f ${TEST_FIXTURE_ROOT}/dir/testpipe
+    rm -f "${TEST_FIXTURE_ROOT}"/dir/testpipe
 }
 
 
@@ -31,8 +33,6 @@ teardown () {
 
 # Transforming path
 @test 'assert_fifo_not_exists() <file>: replace prefix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM="#${TEST_FIXTURE_ROOT}"
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_fifo_not_exists "${TEST_FIXTURE_ROOT}/dir/testpipe"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -42,8 +42,6 @@ teardown () {
 }
 
 @test 'assert_fifo_not_exists() <file>: replace suffix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='%testpipe'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_fifo_not_exists "${TEST_FIXTURE_ROOT}/dir/testpipe"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
@@ -54,8 +52,6 @@ teardown () {
 }
 
 @test 'assert_fifo_not_exists() <file>: replace infix of displayed path' {
-  local -r BATSLIB_FILE_PATH_REM='dir'
-  local -r BATSLIB_FILE_PATH_ADD='..'
   run assert_fifo_not_exists "${TEST_FIXTURE_ROOT}/dir/testpipe"
   [ "${status}" -eq 1 ]
   [ "${#lines[@]}" -eq 3 ]
