@@ -7,6 +7,7 @@ load 'test_helper'
 }
 
 teardown() {
-  local -ir BATSLIB_TEMP_PRESERVE_ON_FAILURE=1
+# NOTE: TEST_TEMP_DIR is assigned by BATS.
+# shellcheck disable=SC2154
   temp_del "${TEST_TEMP_DIR}"
 }
