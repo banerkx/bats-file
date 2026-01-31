@@ -235,7 +235,7 @@ Fail if the given symbolic link does not exist.
 
 ```bash
 @test 'assert_link_exists()' {
-  assert_file_exists /path/to/non-existent-link-file
+  assert_link_exists /path/to/non-existent-link-file
 }
 ```
 
@@ -255,7 +255,7 @@ Fail if the given symbolic link exists.
 
 ```bash
 @test 'assert_link_not_exists() {
-  assert_file_not_exists /path/to/existing-link-file
+  assert_link_not_exists /path/to/existing-link-file
 }
 ```
 
@@ -277,7 +277,7 @@ Fail if the given block special file does not exist.
 
 ```bash
 @test 'assert_block_exists()' {
-  assert_file_exists /path/to/non-existent-block-file
+  assert_block_exists /path/to/non-existent-block-file
 }
 ```
 
@@ -297,7 +297,7 @@ Fail if the given block special file exists.
 
 ```bash
 @test 'assert_block_not_exists() {
-  assert_file_not_exists /path/to/existing-block-file
+  assert_block_not_exists /path/to/existing-block-file
 }
 ```
 
@@ -319,7 +319,7 @@ Fail if the given character special file does not exist.
 
 ```bash
 @test 'assert_character_exists()' {
-  assert_file_exists /path/to/non-existent-character-file
+  assert_character_exists /path/to/non-existent-character-file
 }
 ```
 
@@ -339,7 +339,7 @@ Fail if the given character special file exists.
 
 ```bash
 @test 'assert_character_not_exists() {
-  assert_file_not_exists /path/to/existing-character-file
+  assert_character_not_exists /path/to/existing-character-file
 }
 ```
 
@@ -361,7 +361,7 @@ Fail if the given socket does not exist.
 
 ```bash
 @test 'assert_socket_exists()' {
-  assert_file_exists /path/to/non-existent-socket
+  assert_socket_exists /path/to/non-existent-socket
 }
 ```
 
@@ -381,7 +381,7 @@ Fail if the given socket exists.
 
 ```bash
 @test 'assert_socket_not_exists() {
-  assert_file_not_exists /path/to/existing-socket
+  assert_socket_not_exists /path/to/existing-socket
 }
 ```
 
@@ -403,7 +403,7 @@ Fail if the given named pipe does not exist.
 
 ```bash
 @test 'assert_fifo_exists()' {
-  assert_file_exists /path/to/non-existent-fifo-file
+  assert_fifo_exists /path/to/non-existent-fifo-file
 }
 ```
 
@@ -423,7 +423,7 @@ Fail if the given named pipe exists.
 
 ```bash
 @test 'assert_fifo_not_exists()' {
-  assert_file_not_exists /path/to/existing-fifo-file
+  assert_fifo_not_exists /path/to/existing-fifo-file
 }
 ```
 
